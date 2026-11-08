@@ -1,0 +1,72 @@
+/* Conversation surfaces: flat cards, hairline borders, functional status
+   rules only. The composer is a panel, not a light source. */
+body[data-aic-theme] [data-composer-card] {
+  border: 1px solid var(--aic-line); border-radius: 2px; box-shadow: none;
+  background: var(--aic-panel); transition: border-color 120ms ease;
+}
+body[data-aic-theme] [data-composer-card]:focus-within { border-color: var(--aic-accent-line); }
+body[data-aic-theme] [data-composer-card] [class*="_primary"] {
+  border-radius: 2px; color: var(--dsw-alias-brand-primary-invert); transform: none;
+}
+body[data-aic-theme] [data-composer-card] [class*="_primary"]:hover { background: var(--dsw-alias-button-primary-hover); }
+body[data-aic-theme] [data-composer-card] [class*="_add"] { border-radius: 2px; }
+body[data-aic-theme] [data-composer-card] :is([class*="_trigger"], [class*="_chip"]) { border-radius: 2px; }
+body[data-aic-theme] [data-composer-card] [data-composer-input] { font-family: var(--aic-body); }
+body[data-aic-theme] [data-composer-card] [class*="_cardWorkspaceTrigger"]::after { border-radius: 2px; }
+body[data-aic-theme] [data-slot="conversation.input.model"] [class*="_triggerEffort"] { color: var(--aic-action); }
+body[data-aic-theme] [data-chat-flow]:not([data-step-process-content]) { --dsw-font-markdown-code-block-font-size: max(12px, var(--dsh-code-font-size, 12px)); }
+body[data-aic-theme] [data-chat-flow] :is([data-tool], [data-variant="think"]) { border-radius: 2px; }
+body[data-aic-theme] [data-chat-flow] [data-tool][data-state="running"] {
+  border-inline-start: 2px solid var(--aic-system); padding-inline-start: 10px;
+}
+body[data-aic-theme] [data-chat-flow] [data-tool][data-state="error"] {
+  background: var(--aic-danger-surface); border-inline-start: 2px solid var(--aic-danger); padding-inline-start: 10px;
+  border-radius: 2px;
+}
+body[data-aic-theme] [data-chat-flow] table { border-collapse: collapse; }
+body[data-aic-theme] [data-chat-flow] :is(th, td) { border-color: var(--aic-line-faint); }
+body[data-aic-theme] [data-chat-flow] th { background: var(--aic-raised); }
+body[data-aic-theme] [data-chat-flow] :is(td code, pre, [class*="_timestamp"]) { font-family: var(--aic-mono); }
+body[data-aic-theme] [data-slot="conversation.composer"] [class*="_headline"] { font-weight: 700; }
+body[data-aic-theme] [data-slot="conversation.composer"] [class*="_headline"]::before {
+  content: var(--aic-title-text, "AIC") " / WORKSPACE"; grid-column: 1 / -1; padding-bottom: 12px;
+  color: var(--aic-muted); font: 9px/1.5 var(--aic-mono); letter-spacing: .2em;
+}
+body[data-aic-theme] [data-slot="conversation.composer"] [class*="_previewBadge"] { border-radius: 2px; background: var(--aic-raised); border: 1px solid var(--aic-line); }
+/* The host hero artwork is atmosphere, not information: keep it almost absent. */
+body[data-aic-theme] [data-slot="conversation.composer"] [class*="_heroGlow"] { opacity: .05; filter: grayscale(1); }
+body[data-aic-theme] .aic-readout {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-height: 24px;
+  padding: 2px 0; color: var(--aic-muted); font: 10px/18px var(--aic-mono);
+}
+body[data-aic-theme] .aic-readout-state { display: inline-flex; align-items: center; gap: 6px; color: var(--aic-secondary); font-family: var(--aic-body); }
+body[data-aic-theme] .aic-readout-state::before { content: ""; width: 5px; height: 5px; border: 1px solid var(--aic-muted); }
+body[data-aic-theme] .aic-readout[data-running="true"] .aic-readout-state::before { border-color: var(--aic-system); background: var(--aic-system); }
+body[data-aic-theme] .aic-readout-rule { flex: 1; min-width: 20px; height: 1px; background: var(--aic-line-faint); }
+body[data-aic-theme][data-aic-density="compact"] [data-chat-flow]:not([data-step-process-content]) { --dsh-chat-node-gap: 12px; }
+@media (max-width: 600px) {
+  /* The host already supplies compact run/usage/context controls here. */
+  body[data-aic-theme] .aic-readout { display: none; }
+}
+
+/* Conversation window: coarse + fine engineering grid behind the transcript. */
+body[data-aic-theme] [data-slot="conversation.view"] div[class*="_frame"] {
+  background-color: var(--aic-canvas);
+  background-image:
+    linear-gradient(var(--aic-grid-coarse) 1px, transparent 1px),
+    linear-gradient(90deg, var(--aic-grid-coarse) 1px, transparent 1px),
+    linear-gradient(var(--aic-grid-fine) 1px, transparent 1px),
+    linear-gradient(90deg, var(--aic-grid-fine) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 44px 44px, 44px 44px;
+}
+
+/* Heavier structural lines requested for the composer frame. */
+body[data-aic-theme] [data-composer-card] { border-width: 2px; }
+
+/* User message cards sit centred in the transcript column. */
+body[data-aic-theme][data-aic-center-chat="on"] [data-chat-flow] > *:has([data-slot="conversation.user.text.node"]) { display: flex; justify-content: center; }
+body[data-aic-theme][data-aic-center-chat="on"] [data-chat-flow] > *:has([data-slot="conversation.user.text.node"]) > * { margin-inline: auto; }
+
+/* A status glyph is an icon, not an error panel. Keep its warning silhouette. */
+body[data-aic-theme] [data-chat-flow] [class*="_turnErrorDot"]{box-sizing:border-box;flex:0 0 16px;width:16px!important;height:16px!important;align-self:flex-start;margin-top:2px;border:0;padding:0;border-radius:0;background:var(--aic-danger);box-shadow:none;animation:none;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3L22 21H2Z' fill='none' stroke='white' stroke-width='1.7' stroke-linejoin='round'/%3E%3Cpath d='M12 9v5m0 3v.1' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;}
+body[data-aic-theme] [data-chat-flow] [class*="_turnErrorDot"]::before,body[data-aic-theme] [data-chat-flow] [class*="_turnErrorDot"]::after{content:none;}

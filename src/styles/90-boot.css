@@ -1,0 +1,33 @@
+/* Initialization screen: white hollow diamond, lit progress and real UI milestones. */
+body[data-aic-theme] .aic-boot{position:fixed;inset:0;z-index:1400;display:grid;align-items:center;justify-items:center;background:#191C1B;color:#F2F4F3;pointer-events:none;overflow:hidden;transition:opacity .38s ease,transform .38s ease;}
+body[data-aic-theme] .aic-boot::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 85% 0%,#FFFFFF09,transparent 60%),repeating-linear-gradient(135deg,#FFFFFF03 0 1px,transparent 1px 7px);}
+body[data-aic-theme] .aic-boot-inner{position:relative;width:min(900px,calc(100vw - 72px));transform:translateY(4vh);}
+body[data-aic-theme] .aic-boot-upper{position:relative;transition:transform .72s cubic-bezier(.22,.75,.22,1);}
+body[data-aic-theme] .aic-boot-band{position:absolute;left:-22px;right:-22px;top:14px;height:42px;background:repeating-linear-gradient(135deg,#E6ECEA1A 0 1px,transparent 1px 4px);}
+body[data-aic-theme] .aic-boot-mark{position:relative;display:block;width:68px;height:68px;color:#FFF;filter:drop-shadow(0 0 8px #FFFFFF30);}
+body[data-aic-theme] .aic-boot-wordmark{margin:40px 0 14px;font:500 28px/1.3 var(--aic-body);letter-spacing:.06em;overflow-wrap:anywhere;}
+body[data-aic-theme] .aic-boot-progress{position:relative;width:100%;height:12px;padding:2px;border:1px solid #D8DFDD;box-sizing:border-box;background:#FFFFFF03;}
+body[data-aic-theme] .aic-boot-progress::before{content:"";position:absolute;width:5px;height:5px;background:#EEF3F1;left:-18px;top:3px;}
+body[data-aic-theme] .aic-boot-fill{display:block;height:100%;background:#F3F7F5;box-shadow:0 0 8px #F3F7F5B0,0 0 24px #F3F7F540;transition:width .65s cubic-bezier(.2,.8,.2,1);}
+body[data-aic-theme] .aic-boot-logs{height:122px;margin-top:23px;color:#B4BDB8;font:10px/17px var(--aic-mono);transition:opacity .45s ease,transform .7s ease;}
+body[data-aic-theme] .aic-boot-logs>div{animation:aic-log-flicker 1.4s steps(1) infinite;}
+body[data-aic-theme] .aic-boot-logs>div:nth-child(2n){animation-delay:.3s;}
+body[data-aic-theme] .aic-boot-logs span{color:#6D7973;margin-right:13px;}
+body[data-aic-theme] .aic-boot-complete{position:absolute;left:0;top:198px;opacity:0;font:600 clamp(30px,4.6vw,58px)/1.15 var(--aic-body);letter-spacing:.12em;text-shadow:0 0 18px #FFFFFF28;}
+body[data-aic-theme] .aic-boot[data-phase="complete"] .aic-boot-upper,
+body[data-aic-theme] .aic-boot[data-phase="exit"] .aic-boot-upper{transform:translateY(-94px);}
+body[data-aic-theme] .aic-boot[data-phase="complete"] .aic-boot-logs,
+body[data-aic-theme] .aic-boot[data-phase="exit"] .aic-boot-logs{opacity:0;transform:translateY(-24px);}
+body[data-aic-theme] .aic-boot[data-phase="complete"] .aic-boot-complete{animation:aic-boot-ready .9s .48s linear both;}
+body[data-aic-theme] .aic-boot[data-phase="exit"]{opacity:0;transform:translateY(-12px);}
+body[data-aic-theme] .aic-boot[data-phase="exit"] .aic-boot-complete{opacity:1;}
+@keyframes aic-log-flicker{0%,85%,100%{opacity:1;}86%,89%{opacity:.3;}}
+@keyframes aic-boot-ready{0%,8%{opacity:0;}9%,24%{opacity:1;}25%,32%{opacity:.15;}33%,100%{opacity:1;}}
+@media(max-width:600px){body[data-aic-theme] .aic-boot-inner{width:calc(100vw - 64px);}body[data-aic-theme] .aic-boot-wordmark{font-size:23px;}}
+@media(prefers-reduced-motion:reduce){body[data-aic-theme] .aic-boot:not([data-wait="true"]){display:none;}body[data-aic-theme] .aic-boot,body[data-aic-theme] .aic-boot *{animation:none!important;transition:none!important;}body[data-aic-theme] .aic-boot[data-phase="complete"] .aic-boot-complete{opacity:1;}}
+
+body[data-aic-theme] .aic-boot[data-phase="awaiting"] .aic-boot-upper{transform:translateY(-94px);}
+body[data-aic-theme] .aic-boot[data-phase="awaiting"] .aic-boot-logs{opacity:0;}
+body[data-aic-theme] .aic-boot[data-phase="awaiting"] .aic-boot-complete{opacity:1;}
+body[data-aic-theme] .aic-boot-hint{position:absolute;top:285px;left:0;color:#9BA7A0;font:12px/1.6 var(--aic-body);letter-spacing:.1em;}
+body[data-aic-theme] .aic-boot[data-phase="awaiting"],body[data-aic-theme] .aic-boot[data-phase="exit"][data-wait="true"]{pointer-events:auto;}

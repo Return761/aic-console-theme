@@ -1,0 +1,13 @@
+node_modules/
+.artifacts/
+*.tgz
+preferences/
+docs/reference-slices/
+docs/*.md
+!docs/installation.md
+!docs/design-system.md
+!docs/harmony-font-embedding.md
+untitled.drawio
+.env
+.env.*
+*.log

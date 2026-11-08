@@ -1,0 +1,39 @@
+/* Account credit: a flat panel in the sidebar footer. The accent marks the
+   panel edge only; no radial fill, no glow, no shadow. */
+body[data-aic-theme] [data-slot="sidebar.footer.action"] { min-width: 0; }
+body[data-aic-theme] [data-slot="sidebar"] [class*="_footerActions"] { flex-wrap: wrap; }
+body[data-aic-theme] .aic-balance {
+  box-sizing: border-box; width: 100%; min-width: 0; margin: 6px 0 8px;
+  border: 1px solid var(--aic-line); border-inline-start: 2px solid var(--aic-line-strong);
+  border-radius: 2px; background: var(--aic-panel);
+  padding: 8px 10px 7px; color: var(--aic-ink); overflow: hidden;
+}
+body[data-aic-theme] .aic-balance-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+body[data-aic-theme] .aic-balance-tag { color: var(--aic-muted); font: 9px/16px var(--aic-mono); letter-spacing: .12em; white-space: nowrap; }
+body[data-aic-theme] .aic-balance-refresh {
+  color: var(--aic-muted); padding: 0; width: 22px; height: 22px; border: 1px solid transparent;
+  border-radius: 2px; background: transparent; font: 15px/1 var(--aic-body); cursor: pointer;
+}
+body[data-aic-theme] .aic-balance-refresh:hover:not(:disabled) { border-color: var(--aic-line); color: var(--aic-ink); }
+body[data-aic-theme] .aic-balance-refresh:disabled { opacity: .4; cursor: default; }
+body[data-aic-theme] .aic-balance-values { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; min-height: 31px; }
+body[data-aic-theme] .aic-balance-amount,
+body[data-aic-theme] .aic-balance-placeholder { font: 26px/1.1 var(--aic-number); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+body[data-aic-theme] .aic-balance-placeholder { color: var(--aic-muted); }
+body[data-aic-theme] .aic-balance-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; color: var(--aic-muted); font: 10px/16px var(--aic-body); }
+body[data-aic-theme] .aic-balance-footer time { font-size: 9px; font-family: var(--aic-mono); }
+body[data-aic-theme] .aic-balance-bonus { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin-top: 2px; color: var(--aic-muted); font: 10px/16px var(--aic-body); }
+body[data-aic-theme] .aic-balance-bonus span + span { font-family: var(--aic-mono); color: var(--aic-action); }
+body[data-aic-theme] .aic-balance[data-status="error"],
+body[data-aic-theme] .aic-balance[data-status="stale"] { border-inline-start-color: var(--aic-danger); }
+body[data-aic-theme] .aic-balance[data-status="stale"] .aic-balance-footer { color: var(--aic-action); }
+body[data-aic-theme] .aic-balance[data-wide="false"],
+body[data-aic-theme] [data-slot="sidebar"] [class*="_collapsed"] .aic-balance { width: 34px; padding: 5px 2px; margin: 3px 0; border-inline-start-width: 1px; text-align: center; }
+body[data-aic-theme] .aic-balance[data-wide="false"] :is(.aic-balance-tag,.aic-balance-values,.aic-balance-footer,.aic-balance-bonus),
+body[data-aic-theme] [data-slot="sidebar"] [class*="_collapsed"] .aic-balance :is(.aic-balance-tag,.aic-balance-values,.aic-balance-footer,.aic-balance-bonus) { display: none; }
+body[data-aic-theme] .aic-balance[data-wide="false"] .aic-balance-header,
+body[data-aic-theme] [data-slot="sidebar"] [class*="_collapsed"] .aic-balance .aic-balance-header { justify-content: center; }
+@media (prefers-reduced-motion: no-preference) {
+  body[data-aic-theme][data-aic-motion="on"] .aic-balance[data-status="refreshing"] .aic-balance-refresh { animation: aic-balance-spin 1.5s linear infinite; }
+  @keyframes aic-balance-spin { to { transform: rotate(360deg); } }
+}

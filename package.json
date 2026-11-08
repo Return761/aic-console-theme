@@ -1,0 +1,50 @@
+{
+  "name": "@local/dsh-550-aic-theme",
+  "version": "0.9.3",
+  "private": true,
+  "description": "A restrained AIC engineering-console theme with a dual-colour palette, hollow-diamond identity marks, a borderless left activity terminal, run power strip, session telemetry and reasoning scale.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check && node scripts/validate.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/browser-check.mjs"
+  },
+  "type": "module",
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "client.harmony-*.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "NOTICE.md",
+    "assets/fonts/*-OFL.txt",
+    "assets/fonts/HarmonyOS-Sans-LICENSE.txt"
+  ],
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.0"
+  }
+}

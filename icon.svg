@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264" height="264" viewBox="0 0 264 264" fill="none">
+  <title>AIC CONTROL</title>
+  <g transform="translate(10 10)">
+    <path d="M0 0H22.63L115 92.37V115H92.37L0 22.63Z" fill="#6FA6A0"/>
+    <path d="M0 0H22.63L115 92.37V115H92.37L0 22.63Z" fill="#AAB7B3" transform="translate(186.5 57.5) scale(-1 1) translate(-57.5 -57.5)"/>
+    <path d="M0 0H22.63L115 92.37V115H92.37L0 22.63Z" fill="#AAB7B3" transform="translate(57.5 186.5) rotate(180) scale(-1 1) translate(-57.5 -57.5)"/>
+    <path d="M0 0H22.63L115 92.37V115H92.37L0 22.63Z" fill="#6FA6A0" transform="translate(186.5 186.5) rotate(180) translate(-57.5 -57.5)"/>
+  </g>
+</svg>

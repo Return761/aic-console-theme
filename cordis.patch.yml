@@ -1,0 +1,4 @@
+# Host inventory row; Client resources are owned by the matching bundle lifecycle.
+- insert:
+    - id: dsh-550-aic-theme
+      name: '@local/dsh-550-aic-theme'

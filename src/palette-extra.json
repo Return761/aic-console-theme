@@ -1,0 +1,10 @@
+{
+  "--dsw-specific-menu": { "dark": "#161919", "light": "#FFFFFF" },
+  "--dsw-alias-label-primary-bluish": { "dark": "#EAEBEA", "light": "#141616" },
+  "--dsw-alias-button-info-fill": { "dark": "#86AFA8", "light": "#2F6B64" },
+  "--dsw-alias-button-info-hover": { "dark": "#9ABDB7", "light": "#285C56" },
+  "--dsw-alias-state-warn-label": { "dark": "#C9A96A", "light": "#7A5A22" },
+  "--dsw-alias-state-warn-secondary": { "dark": "#C9A96A", "light": "#7A5A22" },
+  "--dsw-alias-interactive-bg-hover-danger": { "dark": "#33201C", "light": "#F6E6E2" },
+  "--dsw-alias-state-success-secondary": { "dark": "#79B392", "light": "#276A4A" }
+}

@@ -1,0 +1,127 @@
+/* Neutral foundation: one type system, one hairline scale, one accent.
+   Surfaces are opaque and palette-independent; nothing here emits light.
+   The accent only marks focus, current state and data emphasis. */
+body[data-aic-theme] {
+  --aic-body: "HarmonyOS Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --aic-mono: "JetBrains Mono", "Cascadia Mono", Consolas, "HarmonyOS Sans SC", monospace;
+  --aic-number: "Bahnschrift", "HarmonyOS Sans SC", sans-serif;
+  --aic-brand: "Rajdhani", "Bahnschrift", "HarmonyOS Sans SC", sans-serif;
+  --aic-canvas: var(--dsw-alias-bg-base);
+  --aic-panel: var(--dsw-alias-bg-layer-1);
+  --aic-raised: var(--dsw-alias-bg-layer-2);
+  --aic-hover: var(--dsw-alias-interactive-bg-hover-solid);
+  --aic-ink: var(--dsw-alias-label-primary);
+  --aic-secondary: var(--dsw-alias-label-secondary);
+  --aic-muted: var(--dsw-alias-label-tertiary);
+  --aic-line: var(--dsw-alias-border-l2);
+  --aic-line-faint: var(--dsw-alias-border-l1);
+  --aic-line-strong: var(--dsw-alias-border-l4);
+  --aic-system: var(--dsw-alias-state-business-primary);
+  --aic-action: var(--dsw-alias-state-warn-label);
+  --aic-danger: var(--dsw-alias-state-error-primary);
+  --aic-success: var(--dsw-alias-state-success-primary);
+  --aic-compute: var(--aic-system);
+  --aic-silver: #555F5C;
+  --aic-accent-line: color-mix(in srgb, var(--aic-system) 55%, var(--aic-line));
+  --aic-accent-tint: color-mix(in srgb, var(--aic-system) 12%, transparent);
+  --aic-danger-surface: #F6E6E2;
+  --aic-grid: rgb(20 22 22 / 4%);
+  --aic-grid-coarse: rgb(20 22 22 / 10%);
+  --aic-grid-fine: rgb(20 22 22 / 5%);
+  --dsw-font-family: var(--aic-body) !important;
+  --dsw-font: var(--aic-body) !important;
+  --ds-font-family-code: var(--aic-mono) !important;
+  --dsw-font-family-brand: var(--aic-brand) !important;
+  --dsw-radius-xs: 2px;
+  --dsw-radius-sm: 2px;
+  --dsw-radius-md: 2px;
+  --dsw-radius-lg: 2px;
+  --dsw-radius-xl: 2px;
+  --dsw-radius-panel: 2px;
+  --dsw-corner-shape: round;
+  --dsw-shadow-lv1: none;
+  --dsw-shadow-lv2: none;
+  --dsw-shadow-lv3: none;
+  --dsw-elevation-panel: 0 0 0 1px var(--aic-line);
+  --dsw-elevation-prominent: 0 0 0 1px var(--aic-line-strong);
+  --dsw-focus-ring-color: var(--aic-system);
+  --dsw-menu-backdrop-filter: none;
+  font-family: var(--aic-body);
+}
+body[data-aic-theme][data-ds-dark-theme] {
+  --aic-silver: #D6DBD9;
+  --aic-danger-surface: #2A1B18;
+  --aic-grid: rgb(234 235 234 / 3%);
+  --aic-grid-coarse: rgb(234 235 234 / 10%);
+  --aic-grid-fine: rgb(234 235 234 / 5%);
+}
+body[data-aic-theme] :is(button, input, select, textarea) { font-family: var(--aic-body); }
+body[data-aic-theme] :is(code, pre, kbd, samp) { font-family: var(--aic-mono); font-variant-numeric: tabular-nums; }
+body[data-aic-theme] pre { font-size: max(12px, var(--dsh-code-font-size, 12px)); }
+body[data-aic-theme] :is(button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--aic-system);
+  outline-offset: 2px;
+}
+body[data-aic-theme] [data-composer-input]:focus-visible { outline: none; }
+body[data-aic-theme] ::selection { background: color-mix(in srgb, var(--aic-system) 22%, transparent); }
+body[data-aic-theme] :is(.aic-panel, .aic-settings, .aic-analysis) { box-sizing: border-box; }
+body[data-aic-theme] .aic-mono { font-family: var(--aic-mono); font-variant-numeric: tabular-nums; }
+body[data-aic-theme] .aic-number { font-family: var(--aic-number); font-variant-numeric: tabular-nums; line-height: 1; }
+body[data-aic-theme] .aic-eyebrow {
+  font: 9px/1.5 var(--aic-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--aic-muted);
+}
+body[data-aic-theme] .aic-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 30px; padding: 4px 10px; border: 1px solid var(--aic-line);
+  border-radius: 2px; background: var(--aic-raised); color: var(--aic-ink);
+  font: 12px/20px var(--aic-body); cursor: pointer;
+}
+body[data-aic-theme] .aic-button:hover:not(:disabled) { border-color: var(--aic-line-strong); background: var(--aic-hover); }
+body[data-aic-theme] .aic-button:disabled { opacity: .5; cursor: not-allowed; }
+body[data-aic-theme] .aic-error {
+  padding: 11px 12px; color: var(--aic-ink); background: var(--aic-danger-surface);
+  border: 1px solid color-mix(in srgb, var(--aic-danger) 35%, var(--aic-line));
+  border-inline-start: 2px solid var(--aic-danger); border-radius: 2px; overflow-wrap: anywhere;
+}
+/* The frame overlay layer sits above the scrolling columns, so a transient
+   notice is readable over the transcript. It stays click-through. */
+body[data-aic-theme] [class*="_overlayLayer"] { z-index: 200 !important; }
+
+/* Shared motion vocabulary. Motion is short, local and never blocks input;
+   reduced motion disables all of it through the block below. */
+@keyframes aic-sheen {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(240%); }
+}
+@keyframes aic-pulse {
+  0%, 100% { opacity: .45; }
+  50% { opacity: 1; }
+}
+@keyframes aic-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes aic-typing {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes aic-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+/* One-shot entrance for the whole frame after the boot curtain lifts. */
+body[data-aic-theme][data-aic-boot="on"] [data-slot="sidebar"] > [class*="_root"],
+body[data-aic-theme][data-aic-boot="on"] [data-slot="conversation.header"] > header,
+body[data-aic-theme][data-aic-boot="on"] [data-slot="conversation.view"],
+body[data-aic-theme][data-aic-boot="on"] [data-composer-card] {
+  animation: aic-enter .55s cubic-bezier(.2, .7, .2, 1) both;
+}
+body[data-aic-theme][data-aic-boot="on"] [data-slot="conversation.header"] > header { animation-delay: .05s; }
+body[data-aic-theme][data-aic-boot="on"] [data-slot="conversation.view"] { animation-delay: .1s; }
+body[data-aic-theme][data-aic-boot="on"] [data-composer-card] { animation-delay: .16s; }
+@media (prefers-reduced-motion: reduce) {
+  body[data-aic-theme] *, body[data-aic-theme] *::before, body[data-aic-theme] *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+@media (pointer: coarse) {
+  body[data-aic-theme] .aic-button { min-height: 44px; }
+}

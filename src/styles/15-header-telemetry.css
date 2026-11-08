@@ -1,0 +1,60 @@
+/* Compressed header telemetry modelled on preferences 图3/图4: select-style
+   identity, monitor state, square module toggles and mono value chips. */
+body[data-aic-theme] .aic-header-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--aic-muted);
+  font: 9px/12px var(--aic-mono);
+  letter-spacing: .04em;
+}
+body[data-aic-theme] .aic-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 7px;
+  border: 1px solid var(--aic-line);
+  border-radius: 2px;
+  background: none;
+  color: var(--aic-muted);
+  white-space: nowrap;
+  flex: none;
+}
+body[data-aic-theme] .aic-chip b { color: var(--aic-ink); font-weight: 500; letter-spacing: .06em; }
+body[data-aic-theme] .aic-chip-label { color: var(--aic-muted); letter-spacing: .12em; }
+body[data-aic-theme] .aic-chip-select::after { content: "▾"; color: var(--aic-muted); font-size: 8px; }
+body[data-aic-theme] .aic-chip-monitor { letter-spacing: .1em; }
+body[data-aic-theme] .aic-chip-dot { width: 5px; height: 5px; border: 1px solid var(--aic-muted); box-sizing: border-box; }
+body[data-aic-theme] .aic-chip-monitor[data-running="true"] { color: var(--aic-system); border-color: var(--aic-accent-line); }
+body[data-aic-theme] .aic-chip-monitor[data-running="true"] .aic-chip-dot { background: var(--aic-system); border-color: var(--aic-system); animation: aic-pulse 1.6s ease-in-out infinite; }
+body[data-aic-theme] .aic-chip-group { display: inline-flex; gap: 3px; flex: none; }
+body[data-aic-theme] .aic-chip-button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--aic-line);
+  border-radius: 2px;
+  background: none;
+  color: var(--aic-muted);
+  font: 11px/1 var(--aic-mono);
+  cursor: pointer;
+}
+body[data-aic-theme] .aic-chip-button:hover { border-color: var(--aic-line-strong); color: var(--aic-ink); }
+body[data-aic-theme] .aic-chip-button[data-on="true"] { border-color: var(--aic-accent-line); color: var(--aic-system); }
+/* Keep the session title readable: value chips appear only when the header
+   has room, and the whole strip yields below 940px. */
+@media (max-width: 1599px) {
+  body[data-aic-theme] .aic-header-telemetry > .aic-chip:not(.aic-chip-select):not(.aic-chip-monitor) { display: none; }
+}
+@media (max-width: 1180px) {
+  body[data-aic-theme] .aic-header-telemetry .aic-chip-group { display: none; }
+}
+@media (max-width: 940px) {
+  body[data-aic-theme] .aic-header-telemetry { display: none; }
+}

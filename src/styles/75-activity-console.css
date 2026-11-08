@@ -1,0 +1,134 @@
+/* Left activity log: a borderless, full-height column of live tool activity.
+   It is a readout, not a card: small mono type, faded ink, ragged right edge,
+   no border, no fill, no reserved gutter (the transcript does not move). */
+body[data-aic-theme] .aic-activity {
+  position: fixed;
+  z-index: 40;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: color-mix(in srgb, var(--aic-muted) 78%, transparent);
+  font: 10px/15px var(--aic-mono);
+  pointer-events: none;
+  overflow: hidden;
+}
+body[data-aic-theme] .aic-activity::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(100deg, transparent 34%, color-mix(in srgb, var(--aic-system) 7%, transparent) 50%, transparent 66%);
+}
+body[data-aic-theme] .aic-activity[data-running="true"]::after { opacity: 1; animation: aic-sheen 3.6s linear infinite; }
+body[data-aic-theme] .aic-activity-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 56px, #000 calc(100% - 36px), transparent 100%), linear-gradient(90deg, #000 0, #000 calc(100% - 28px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, transparent 0, #000 56px, #000 calc(100% - 36px), transparent 100%), linear-gradient(90deg, #000 0, #000 calc(100% - 28px), transparent 100%);
+  mask-composite: intersect;
+}
+body[data-aic-theme] .aic-activity-line {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  flex: 0 0 15px;
+  height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--aic-muted) 78%, transparent);
+  text-overflow: clip;
+}
+body[data-aic-theme] .aic-activity-line[data-latest="true"] { color: color-mix(in srgb, var(--aic-secondary) 82%, transparent); }
+/* Ragged right edge: every third line stops at a different width. */
+body[data-aic-theme] .aic-activity-line:nth-child(3n + 2) { max-width: 88%; }
+body[data-aic-theme] .aic-activity-line:nth-child(3n) { max-width: 73%; }
+body[data-aic-theme] .aic-activity-line:nth-child(5n) { max-width: 95%; }
+body[data-aic-theme] .aic-activity-line .seq { color: color-mix(in srgb, var(--aic-muted) 45%, transparent); flex: none; width: 26px; text-align: start; font-size: 8px; }
+body[data-aic-theme] .aic-activity-line .prompt { color: color-mix(in srgb, var(--aic-action) 72%, transparent); flex: none; }
+body[data-aic-theme] .aic-activity-line .tool { color: color-mix(in srgb, var(--aic-secondary) 70%, transparent); flex: none; max-width: 76px; overflow: hidden; text-overflow: clip; }
+body[data-aic-theme] .aic-activity-line .target { color: color-mix(in srgb, var(--aic-secondary) 68%, transparent); flex: 1; min-width: 0; overflow: hidden; text-overflow: clip; }
+body[data-aic-theme] .aic-activity-line[data-state="error"] .target { color: color-mix(in srgb, var(--aic-danger) 80%, transparent); }
+body[data-aic-theme] .aic-activity-line[data-latest="true"] .target { animation: aic-typing 1.2s steps(30) both; }
+body[data-aic-theme] .aic-activity-cursor { flex: none; width: 4px; height: 9px; align-self: center; background: color-mix(in srgb, var(--aic-action) 70%, transparent); animation: aic-blink 1.15s steps(1) infinite; }
+body[data-aic-theme] .aic-activity[data-running="false"] .aic-activity-cursor { display: none; }
+body[data-aic-theme] .aic-activity-empty { color: color-mix(in srgb, var(--aic-muted) 60%, transparent); }
+
+/* Top-right telemetry: the log's former header, moved to the frame corner. */
+body[data-aic-theme] .aic-activity-corner {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  pointer-events: none;
+  color: var(--aic-muted);
+  font: 9px/13px var(--aic-mono);
+  letter-spacing: .02em;
+  text-align: right;
+  white-space: nowrap;
+}
+body[data-aic-theme] .aic-activity-corner-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--aic-muted);
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+body[data-aic-theme] .aic-activity-corner-head::before { content: ""; width: 6px; height: 6px; transform: rotate(45deg); border: 1px solid var(--aic-action); box-sizing: border-box; }
+body[data-aic-theme] .aic-activity-corner-state { color: var(--aic-action); }
+body[data-aic-theme] .aic-activity-corner[data-running="true"] .aic-activity-corner-state { color: var(--aic-system); }
+body[data-aic-theme] .aic-activity-corner-counts { display: flex; gap: 9px; color: var(--aic-muted); }
+body[data-aic-theme] .aic-activity-corner-counts b { color: var(--aic-secondary); font-weight: 400; }
+body[data-aic-theme] .aic-activity-corner-files { max-width: 280px; overflow: hidden; text-overflow: ellipsis; color: color-mix(in srgb, var(--aic-muted) 82%, transparent); }
+body[data-aic-theme] .aic-activity-corner-files b { color: var(--aic-secondary); font-weight: 400; }
+@media (max-width: 1359px) {
+  body[data-aic-theme] .aic-activity { display: none; }
+}
+@media (max-width: 900px) {
+  body[data-aic-theme] .aic-activity-corner { display: none; }
+}
+
+/* Bottom-right mission block: goal / state / counters, mirroring the left log. */
+body[data-aic-theme] .aic-mission {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  max-width: 100%;
+  pointer-events: none;
+  color: var(--aic-muted);
+  font: 8.5px/12px var(--aic-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+body[data-aic-theme] .aic-mission-head { display: flex; align-items: center; gap: 7px; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+body[data-aic-theme] .aic-mission-head::before { content: ""; width: 6px; height: 6px; transform: rotate(45deg); border: 1px solid var(--aic-action); box-sizing: border-box; }
+body[data-aic-theme] .aic-mission-state { color: var(--aic-action); }
+body[data-aic-theme] .aic-mission[data-running="true"] .aic-mission-state { color: var(--aic-system); }
+body[data-aic-theme] .aic-mission-goal { display: flex; align-items: baseline; gap: 6px; max-width: 100%; color: var(--aic-muted); }
+body[data-aic-theme] .aic-mission-goal b { color: var(--aic-secondary); font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
+body[data-aic-theme] .aic-mission-plan { display: flex; align-items: baseline; gap: 6px; max-width: 100%; color: var(--aic-muted); }
+body[data-aic-theme] .aic-mission-plan b { color: var(--aic-secondary); font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
+body[data-aic-theme] .aic-mission-task { display: flex; align-items: baseline; justify-content: flex-end; gap: 5px; max-width: 100%; overflow: hidden; }
+body[data-aic-theme] .aic-mission-task i { color: var(--aic-action); font-style: normal; flex: none; }
+body[data-aic-theme] .aic-mission-task b { color: var(--aic-muted); font-weight: 400; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+body[data-aic-theme] .aic-mission-counts { display: flex; gap: 10px; }
+body[data-aic-theme] .aic-mission-counts b, body[data-aic-theme] .aic-mission-file b { color: var(--aic-secondary); font-weight: 400; }
+body[data-aic-theme] .aic-mission-file { overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+@media (max-width: 1100px) { body[data-aic-theme] .aic-mission { display: none; } }

@@ -1,0 +1,105 @@
+/* Thinking state: the host's deep-dive line becomes a silver instrument readout.
+   The host whale sprite is removed; a progress ring travels the rotated-45° diamond
+   in the icon seat, drawn with stroke-dashoffset. Data-URI images cannot resolve CSS
+   custom properties, so the two SVG strokes are baked to the --aic-silver values
+   (#C9CFCD light / #D6DBD9 dark); every other colour is a token. */
+
+/* Host-blue reset: the wrapper's deep-dive colour and its blue shimmer become
+   ink and a silver scan. Nothing in this subtree inherits the host blue. */
+body[data-aic-theme] [data-slot="conversation.view"] [data-chat-running] {
+  color: var(--aic-ink);
+  --dsw-alias-label-shimmer: color-mix(in srgb, var(--aic-silver) 55%, var(--aic-muted));
+}
+
+/* Instrument readout plate: hairline border, square corners, no glow, no gradient. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningContent"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 26px;
+  padding: 4px 10px 4px 6px;
+  border: 1px solid var(--aic-line);
+  border-inline-start: 2px solid var(--aic-secondary);
+  border-radius: 2px;
+  background: var(--aic-panel);
+  color: var(--aic-secondary);
+  font: 10px/16px var(--aic-mono);
+  letter-spacing: .02em;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* Remove the host's animated whale mask and the static whale-tail SVG from paint. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningIcon"] > :is(svg, [class*="_runningWhaleAnimated"], [class*="_runningWhaleStill"]) {
+  display: none !important;
+}
+
+/* Icon seat: holds the 18px diamond ring in place of the host icon. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningIcon"] {
+  --aic-ring-track: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M10%202%2018%2010%2010%2018%202%2010Z%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27miter%27%20pathLength%3D%27100%27%2F%3E%3C%2Fsvg%3E");
+  --aic-ring-frame: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cstyle%3E%40keyframes%20aic-diamond-ring%7Bfrom%7Bstroke-dashoffset%3A0%7Dto%7Bstroke-dashoffset%3A-100%7D%7D%3C%2Fstyle%3E%3Cpath%20d%3D%27M10%202%2018%2010%2010%2018%202%2010Z%27%20fill%3D%27none%27%20stroke%3D%27%23C9CFCD%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27miter%27%20pathLength%3D%27100%27%20stroke-dasharray%3D%2726%2074%27%20style%3D%27animation%3Aaic-diamond-ring%202.4s%20linear%20infinite%27%2F%3E%3C%2Fsvg%3E");
+  --aic-ring-still: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M10%202%2018%2010%2010%2018%202%2010Z%27%20fill%3D%27none%27%20stroke%3D%27%23C9CFCD%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27miter%27%20opacity%3D%27.9%27%2F%3E%3C%2Fsvg%3E");
+  position: relative;
+  flex: none;
+  width: 18px !important;
+  height: 18px !important;
+  color: var(--aic-silver);
+  animation: none;
+}
+body[data-aic-theme][data-ds-dark-theme] [data-slot="conversation.view"] [class*="_runningIcon"] {
+  --aic-ring-frame: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cstyle%3E%40keyframes%20aic-diamond-ring%7Bfrom%7Bstroke-dashoffset%3A0%7Dto%7Bstroke-dashoffset%3A-100%7D%7D%3C%2Fstyle%3E%3Cpath%20d%3D%27M10%202%2018%2010%2010%2018%202%2010Z%27%20fill%3D%27none%27%20stroke%3D%27%23D6DBD9%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27miter%27%20pathLength%3D%27100%27%20stroke-dasharray%3D%2726%2074%27%20style%3D%27animation%3Aaic-diamond-ring%202.4s%20linear%20infinite%27%2F%3E%3C%2Fsvg%3E");
+  --aic-ring-still: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M10%202%2018%2010%2010%2018%202%2010Z%27%20fill%3D%27none%27%20stroke%3D%27%23D6DBD9%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27miter%27%20opacity%3D%27.9%27%2F%3E%3C%2Fsvg%3E");
+}
+
+/* Track: the full diamond hairline, painted with the silver token through a mask. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningIcon"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: color-mix(in srgb, var(--aic-silver) 24%, transparent);
+  -webkit-mask-image: var(--aic-ring-track);
+  mask-image: var(--aic-ring-track);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Progress: one segment cycling once per 2.4s around the rotated diamond. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningIcon"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--aic-ring-frame);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Text: ink on the plate, tabular numbers, no host blue and no text glow. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningText"] {
+  color: var(--aic-ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Auxiliary lane: the host divider stays out of the readout. */
+body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningDivider"] { display: none; }
+body[data-aic-theme] [data-slot="conversation.view"] [data-chat-running] > [class*="_runningContent"] ~ * { color: var(--aic-muted); }
+
+/* Reduced motion: a still silver diamond frame, nothing animates in the prompt. */
+@media (prefers-reduced-motion: reduce) {
+  body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningIcon"]::after {
+    background-image: var(--aic-ring-still);
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-aic-theme] [data-slot="conversation.view"] [class*="_runningContent"] { font-size: 9.5px; }
+}

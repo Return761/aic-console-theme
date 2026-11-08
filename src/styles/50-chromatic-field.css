@@ -1,0 +1,80 @@
+/* One accent, used locally. Module chrome, settings and error surfaces stay
+   flat: separation comes from hairlines and spacing, never from light. */
+
+/* Panel heads: a 2px accent index tick, no gradient and no glow. */
+body[data-aic-theme][data-aic-decoration="on"] .aic-panel-head::before {
+  content: ""; flex: none; width: 2px; height: 12px; background: var(--aic-system); margin-right: 8px;
+}
+body[data-aic-theme][data-aic-decoration="on"] .aic-panel-head { justify-content: flex-start; }
+body[data-aic-theme][data-aic-decoration="on"] .aic-panel-head > :last-child:not(:first-child) { margin-left: auto; }
+body[data-aic-theme][data-aic-decoration="on"] .aic-analysis-heading {
+  border-top: 1px solid var(--aic-line); border-bottom: 1px solid var(--aic-line-faint);
+  padding-top: 12px; margin-bottom: 12px; background: none;
+}
+/* Structural corner ticks are alignment marks, not light. */
+body[data-aic-theme][data-aic-decoration="on"] .aic-plot::after {
+  content: ""; position: absolute; inset: 10px; pointer-events: none; opacity: .55;
+  background:
+    linear-gradient(var(--aic-line-strong), var(--aic-line-strong)) left top / 14px 1px no-repeat,
+    linear-gradient(var(--aic-line-strong), var(--aic-line-strong)) left top / 1px 14px no-repeat,
+    linear-gradient(var(--aic-line-strong), var(--aic-line-strong)) right bottom / 14px 1px no-repeat,
+    linear-gradient(var(--aic-line-strong), var(--aic-line-strong)) right bottom / 1px 14px no-repeat;
+}
+
+/* Colour palettes: neutral tiles whose only colour is the accent rule. */
+body[data-aic-theme] .aic-palette-picker {
+  margin: 0; padding: 14px 0; border: 0; border-bottom: 1px solid var(--aic-line);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+}
+body[data-aic-theme] .aic-palette-picker legend { padding: 12px 0 0; font-size: 13px; }
+body[data-aic-theme] .aic-palette-option {
+  display: flex; flex-direction: column; gap: 5px; min-width: 0; padding: 8px 7px;
+  border: 1px solid var(--aic-line); border-radius: 2px; background: var(--aic-panel);
+  color: var(--aic-secondary); font: 12px/1.5 var(--aic-body); cursor: pointer; text-align: left;
+}
+body[data-aic-theme] .aic-palette-option:hover { border-color: var(--aic-line-strong); }
+body[data-aic-theme] .aic-palette-option[aria-pressed="true"] {
+  border-color: var(--aic-line-strong); color: var(--aic-ink); box-shadow: inset 0 -2px var(--aic-system);
+}
+body[data-aic-theme] .aic-palette-swatch {
+  display: block; position: relative; width: 100%; height: 22px;
+  background: var(--aic-raised); border-bottom: 2px solid var(--swatch-light);
+}
+body[data-aic-theme][data-ds-dark-theme] .aic-palette-swatch { border-bottom-color: var(--swatch-dark); }
+body[data-aic-theme] .aic-palette-swatch::before {
+  content: ""; position: absolute; left: calc(50% - 4px); top: 6px; width: 8px; height: 8px;
+  transform: rotate(45deg); box-sizing: border-box; border: 1px solid var(--aic-action);
+  background: transparent; box-shadow: none;
+}
+body[data-aic-theme] .aic-palette-option small { font: 10px/1.5 var(--aic-mono); color: var(--aic-muted); }
+body[data-aic-theme] .aic-fx-preview { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 0; align-items: center; border-bottom: 1px solid var(--aic-line); }
+body[data-aic-theme] .aic-fx-preview .aic-eyebrow { flex-basis: 100%; }
+
+/* Settings surfaces: same panel language as the rest of the console. */
+body[data-aic-theme] .aic-settings { width: min(420px, calc(100vw - 24px)); }
+body[data-aic-theme] .aic-settings-header {
+  position: sticky; top: 0; z-index: 2; background: var(--aic-raised);
+  border-bottom: 1px solid var(--aic-line);
+}
+body[data-aic-theme] .aic-settings-title {
+  margin: 0; font: 600 12px/1.4 var(--aic-mono); letter-spacing: .18em; text-transform: uppercase;
+}
+body[data-aic-theme] .aic-setting-row { padding: 10px 0; }
+/* The native input keeps its hit area and checked state; the mark is a flat
+   square that fills with the accent when checked. No rotation, no glow. */
+body[data-aic-theme] .aic-setting-row input[type="checkbox"] {
+  appearance: none; position: relative; width: 18px; height: 18px; flex: none;
+  border: 1px solid var(--aic-line-strong); border-radius: 0; background: var(--aic-panel); cursor: pointer;
+}
+body[data-aic-theme] .aic-setting-row input[type="checkbox"]::before {
+  content: ""; position: absolute; inset: 5px; background: transparent;
+}
+body[data-aic-theme] .aic-setting-row input[type="checkbox"]:checked { border-color: var(--aic-system); }
+body[data-aic-theme] .aic-setting-row input[type="checkbox"]:checked::before { background: var(--aic-system); }
+body[data-aic-theme] .aic-settings-trigger::before {
+  content: ""; width: 5px; height: 5px; transform: rotate(45deg);
+  box-sizing: border-box; border: 1px solid var(--aic-action); background: transparent;
+}
+body[data-aic-theme][data-aic-density="compact"] .aic-analysis-metric { padding: 10px 12px; }
+body[data-aic-theme][data-aic-density="compact"] .aic-analysis-heading h2 { font-size: 18px; }
+body[data-aic-theme][data-aic-density="compact"] .aic-panel-head { padding: 7px 10px; min-height: 32px; }

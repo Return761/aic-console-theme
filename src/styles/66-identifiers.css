@@ -1,0 +1,30 @@
+/* Identity marks: hollow diamonds stay in the sidebar and panels (outline
+   only, secondary colour). The turn axis uses a filled triangle instead.
+   Nothing here emits light. */
+body[data-aic-theme] .aic-balance-tag::before {
+  content: "";
+  display: inline-block;
+  box-sizing: border-box;
+  width: 6px;
+  height: 6px;
+  margin-inline-end: 7px;
+  transform: rotate(45deg);
+  border: 1px solid var(--aic-action);
+  background: transparent;
+  box-shadow: none;
+}
+body[data-aic-theme] .aic-ring-arc[data-active="true"],
+body[data-aic-theme] .aic-ring-ray[data-active="true"] { stroke: var(--aic-system); }
+body[data-aic-theme] .aic-palette-swatch::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 4px);
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+  border: 1px solid var(--aic-action);
+  background: transparent;
+  box-shadow: none;
+}
